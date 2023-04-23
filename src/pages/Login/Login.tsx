@@ -1,8 +1,9 @@
 import { useDispatch } from "react-redux";
 import { getMorty } from "../../services";
-import { createUser } from "../../redux/states/user.slice";
+import { createUser, resetUser } from "../../redux/states/user.slice";
 import { useNavigate } from "react-router-dom";
-import { PrivateRoutes } from "../../models";
+import { PrivateRoutes, PublicRoutes, Roles } from "../../models";
+import { useEffect } from "react";
 
 function Login() {
   const dispatch = useDispatch();
@@ -11,12 +12,19 @@ function Login() {
   const Login = async () => {
     try {
       const result = await getMorty();
-      dispatch(createUser(result));
+      //delete the role object from the result because it is not neede
+      dispatch(createUser({ ...result, rol: Roles.USER }));
+      
       navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    dispatch(resetUser());
+    navigate(`/${PublicRoutes.LOGIN}`, { replace: true });
+  }, [dispatch, navigate]);
 
   return (
     <>

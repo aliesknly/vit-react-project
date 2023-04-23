@@ -1,3 +1,3 @@
 export * from './Dashboard';
-export * from './Home';
+export * from '../Public/Home';
 export { default as Private } from './Private';
