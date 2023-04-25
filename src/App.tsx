@@ -7,6 +7,7 @@ import { Provider } from "react-redux"
 import store from "./redux/store"
 import { Logout } from "./components"
 import { Dashboard } from "./pages/Private"
+import './index.css'
 
 const Login = lazy(() => import("./pages/Login/Login"))
 const Private = lazy(() => import("./pages/Private/Private"))
